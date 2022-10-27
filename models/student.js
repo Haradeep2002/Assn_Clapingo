@@ -37,15 +37,7 @@ const studentSchema = new mongoose.Schema({
             }
         }
     },
-    //this field is real
-    //fav teacher
-    teacher: {
-        //ObjectID
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        //reference of other collection to create a link between both 
-        ref: 'Teacher'
-    },
+    favteachers:[{ type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' }],
     token: {
         type: String
     }

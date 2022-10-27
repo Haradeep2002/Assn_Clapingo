@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {create,delet,readAll} = require("../controllers/teacher")
+const {create,delet,readAll,read,updat} = require("../controllers/teacher")
 
-router.post("/teacher/create",create)
-router.delete('/teacher/delete',delet)
+router.post("/teacher",create)
+router.delete('/teacher',delet)
+router.get('/teacher',read)
+router.patch('/teacher',updat)
 router.get('/teachers',readAll)
 
 module.exports =router

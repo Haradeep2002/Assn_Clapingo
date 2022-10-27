@@ -22,9 +22,9 @@ const teacherSchema = new mongoose.Schema({
 teacherSchema.virtual('students', {
     ref: 'Student',
     localField: '_id',
-    foreignField: 'teacher'
+    foreignField: 'favteachers'
 })
 
 const Teacher = mongoose.model('Teacher', teacherSchema)
 
-module.exports = Teacher
+module.exports = {Teacher}

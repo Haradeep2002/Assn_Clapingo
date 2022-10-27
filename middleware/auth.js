@@ -11,7 +11,6 @@ const auth = async (req, res, next) => {
             throw new Error('no student found')
         }
         req.token = token
-        //req.auth
         req.student = student
         next()
     } catch (e) {
