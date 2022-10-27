@@ -1,5 +1,5 @@
-//auth.js+user.js
 const Student = require('../models/student')
+
 const signup =async (req,res) => {
     const student = new Student(req.body)
     try{
@@ -37,8 +37,7 @@ const signout =async (req, res) => {
 
 const studentById = async (req,res,next,id) => {
     try{
-        console.log("studentByid")
-        const student = await Student.findById(id)
+        const student = await Student.findById(id).populate("teacher", "name")
         if(!student){
             throw new Error("student not found")
         }

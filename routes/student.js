@@ -1,4 +1,3 @@
-//auth.js+user.js
 const express = require('express')
 const {signup,signin,signout,studentById,read} = require('../controllers/student')
 const auth = require('../middleware/auth')

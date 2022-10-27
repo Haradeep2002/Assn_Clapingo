@@ -1,5 +1,3 @@
-//requireSignin.js+isAuth.js(partial)
-//authenticated user
 const jwt = require('jsonwebtoken')
 const Student = require('../models/student')
 //express middleware

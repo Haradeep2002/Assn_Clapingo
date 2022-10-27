@@ -37,6 +37,15 @@ const studentSchema = new mongoose.Schema({
             }
         }
     },
+    //this field is real
+    //fav teacher
+    teacher: {
+        //ObjectID
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        //reference of other collection to create a link between both 
+        ref: 'Teacher'
+    },
     token: {
         type: String
     }
@@ -57,7 +66,6 @@ studentSchema.methods.toJSON = function () {
 studentSchema.methods.generateAuthToken = async function () {
     const student = this
     const token = jwt.sign({ _id: student._id.toString() }, process.env.JWT_SECRET)
-    //if(user.token ==null)
     student.token = token
     await student.save()
 
