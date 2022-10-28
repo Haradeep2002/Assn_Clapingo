@@ -1,4 +1,4 @@
-const {Teacher} = require('../models/teacher');
+const Teacher = require('../models/teacher');
 const Student = require('../models/student');
 
 const create =async (req,res) => {
@@ -54,7 +54,6 @@ const read = async (req,res) => {
 
 const updat = async (req,res) => {
     try{
-        // console.log(req.body)
         const teacher = await Teacher.findById(req.body["id"])
         teacher["name"] = req.body["name"]
         teacher.save()

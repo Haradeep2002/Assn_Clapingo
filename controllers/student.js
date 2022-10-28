@@ -80,12 +80,44 @@ const remfav = async (req,res) => {
         res.status(200).send(req.student)
     }catch(e){  
         return res.status(400).json({
-            error:e
+            error:"cant find teacher"
         })
+    }
+}
+
+const delet = async (req,res) => {
+    const student = await Student.findById(req.student["id"])
+    try{
+        await student.remove()
+        res.status(200).send("student removed")
+    }catch(err){
+        return res.status(400).send({
+            error: err
+        })
+    }
+}
+
+const update = async (req, res) => {
+    const updates = Object.keys(req.body)
+
+    const allowedUpdates = ['name', 'password']
+
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+        return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    try {
+        updates.forEach((update) => req.profile[update] = req.body[update])
+        await req.profile.save()
+        res.send(req.profile)
+    } catch (e) {
+        res.status(400).send(e)
     }
 }
 
 
 module.exports = {
-    signup,signin,signout,studentById,read,addfav,remfav
+    signup,signin,signout,studentById,read,addfav,remfav,delet,update
 }
