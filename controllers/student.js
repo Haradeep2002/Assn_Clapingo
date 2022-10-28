@@ -1,4 +1,6 @@
 const Student = require('../models/student')
+const Teacher = require('../models/teacher')
+
 
 const signup =async (req,res) => {
     const student = new Student(req.body)
@@ -7,6 +9,7 @@ const signup =async (req,res) => {
         const token = await student.generateAuthToken()
         res.status(201).send({ student, token })
     }catch(err){
+        console.log(err)
         return res.status(400).json({
             error: err
         })
@@ -117,7 +120,32 @@ const update = async (req, res) => {
     }
 }
 
+const favorite = async (req,res) => {
+    try{
+        const teachers = await Teacher.find();
+        let mx = 0, fav = null;
+        for(let teacher of teachers){
+            let docs = await Student.aggregate([
+                { 
+                    $match: {
+                        "favteachers": {
+                            "$in": [teacher["_id"]]
+                        }
+                    } 
+                }
+            ]);
+            if(docs.length>mx){
+                mx=docs.length;
+                fav=teacher;
+            }
+        }
+        res.status(200).send({ fav_teacher: fav })
+    }catch(e){
+        res.status(401).send(e)
+    }
+}
+
 
 module.exports = {
-    signup,signin,signout,studentById,read,addfav,remfav,delet,update
+    signup,signin,signout,studentById,read,addfav,remfav,delet,update,favorite
 }

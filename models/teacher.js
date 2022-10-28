@@ -7,7 +7,6 @@ const teacherSchema = new mongoose.Schema({
         required: true,
         trim: true,
         maxlength:32,
-        unique:true,
         validate(value) {
             if (validator.isEmpty(value)) {
                 throw new Error('Name cannot be empty')
